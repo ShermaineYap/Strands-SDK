@@ -1,0 +1,1980 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Hujan - Laman Web Rasmi Public Infobanjir</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+</head>
+<style>
+    .color-box {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+    }
+    .state-cell.renyai {
+        background-color: #008000;
+    }
+    .state-cell.sederhana {
+        background-color: #ffff00;
+    }
+    .state-cell.lebat {
+        background-color: #ff9900;
+    }
+    .state-cell.sangatlebat {
+        background-color: #ff0000;
+        color: white;
+    }
+    .graph a{ 
+            text-align: center; 
+            text-decoration: none; /* Removes underline */
+            color: inherit; /* Inherits the text color from .state-cell */
+            display: block; /* Makes the link take up the full cell for easier clicking */
+            width: 100%; /* Ensures proper alignment */
+            height: 100%;
+        }
+        .sitename {
+            background: url(/bg-head-left-abstract.png) 0 100% no-repeat!important;
+            position: relative!important;
+            border-top: 1px solid #bababa!important;
+        }
+        .sitename .layer {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(13, 62, 91, 0.90) !important;
+}
+.sitename h1 {
+            color: #FFF!important;
+            margin: 0!important;
+            padding: .4em 0!important;
+            font-size: 1.4em!important;
+            font-family: inherit
+        }
+        .breadcrumbs {
+    background-color: #e8e8e8 !important;
+    padding: 0 0 6px !important;
+}
+.breadcrumb a {
+    background: transparent;
+    color: #6f6f6f;
+    text-decoration: auto;
+}
+.breadcrumbs {
+            background-color: #e8e8e8!important;
+            /* padding: 0 0 6px!important; */
+            padding: 0 !important;
+    margin-bottom: 0 !important;
+    display: block !important;
+    padding-top: .2em !important;
+    color: #6f6f6f !important;
+        }
+        .normaltable tr:nth-child(odd) {
+        background-color: #EAF3F3;
+        }
+        .normaltable td{
+            border: 1px solid #a6a6a6 !important;
+        }
+        .normaltable th{
+    padding:5px !important;
+    border: 5px;
+}
+
+.form-group {
+    margin-bottom: 3px !important;
+}
+.control-label{
+    align-self: center;
+}
+        </style>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Web of Public InfoBanjir</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://publicinfobanjir.water.gov.my/css/responsive.css">
+    <link rel="stylesheet" href="https://publicinfobanjir.water.gov.my/css/css-table.css">
+    <link rel="stylesheet" href="https://publicinfobanjir.water.gov.my/css/style.css">
+    <link rel="stylesheet" href="https://publicinfobanjir.water.gov.my/css/w3.css">
+    <link rel="stylesheet" href="https://publicinfobanjir.water.gov.my/css/page-mapsfdc-2.css">
+    <link rel="stylesheet" href="https://publicinfobanjir.water.gov.my/css/page-mapsfdc.css">
+    <link rel="shortcut icon" href="https://publicinfobanjir.water.gov.my/favicon.ico" type="image/x-icon">
+    <style>
+        header {
+            background: url('https://publicinfobanjir.water.gov.my/bg3.jpg');
+            overflow:hidden;
+        }
+        /* .Head1 {
+            font-weight: 900;
+            font-size: 230%;
+            color: midnightblue;
+        }
+        .Head2 {
+            font-weight: 600;
+            font-size: 112%;
+            color: midnightblue;
+        } */
+        /* .header_info_wrap{
+            width: 70%;
+            float: right;
+            text-align: center;
+        } */
+        /* .header-logo {
+            width: 25%;
+            float: left;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-wrap: wrap;
+        } 
+        .header-subtitle {
+            margin: 0;
+            font-size: 1em;
+        }
+        nav {
+            margin-top: 20px;
+            padding:0px;
+            background: #0066b2;
+        } */
+        .carousel-inner{
+  display: none;
+}
+#main {
+    background: url('https://publicinfobanjir.water.gov.my/bg3.jpg');
+}
+#wrapper{
+  background: white;
+}
+
+.marqueeAnn p:hover{
+  -moz-animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+.marqueeAnn {
+  display: inline-block;
+max-height: 100px;
+overflow: hidden;
+}
+.marqueeAnn p {
+    padding-top: 100px;
+    animation: marqueeAnn 20s linear infinite;
+}
+@keyframes marqueeAnn {
+  100% {
+      margin-top: -200px;
+    }
+}
+ .annclose {
+  z-index: 1100;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1.2rem;
+  padding: 0.6rem;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .annclose svg {
+    width: 24px;
+    fill: #fff;
+    pointer-events: none;
+    vertical-align: top;
+  }
+  .annmodal-content {
+    border-radius: 6px;
+    outline: 0;
+    top: 5%;
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 70%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+    .leaflet-top .leaflet-control {
+     margin-top: 4px;
+    }
+    </style>
+</head>
+<body>
+    <div id="main">
+    <!-- <header id="masthead" class="site-header"> -->
+        <!-- <div class="container"> -->
+        <div class="ak-container">
+            <div class="logo_info_wrap">
+                <div class="header-logo-container">
+                <img src="https://publicinfobanjir.water.gov.my/new.png" alt="Coat of Arms of Malaysia">
+                </div>
+                <div class="header_info_wrap">
+                    <h3 class="Head1">LAMAN WEB RASMI PUBLIC BANJIR</h3>
+                    <h5 class="Head2">JABATAN PENGAIRAN DAN SALIRAN MALAYSIA, KEMENTERIAN PERALIHAN TENAGA DAN TRANSFORMASI AIR</h5>
+                </div>
+            </div>
+        </div>
+        <!-- test sj -->
+        <nav id="site-navigation" class="main-navigation center top" role="navigation">
+			<div class="ak-container-fluid">
+                <!-- <div class="mb-ham">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div> -->
+
+                <div class="menu-menu-1-container mmenu-wrapper">
+                    <ul id="primary-menu" class="menu sf-js-enabled sf-arrows">
+<li id="menu-item-2282" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2282"><a href="https://publicinfobanjir.water.gov.my" class="sf-with-ul">Utama</a>
+</li>
+<li id="menu-item-4366" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-72 current_page_item menu-item-4366"><a href="https://publicinfobanjir.water.gov.my/rainfall">Hujan</a></li>
+<li id="menu-item-4372" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4372"><a href="https://publicinfobanjir.water.gov.my/waterlevel">Aras Air</a></li>
+</li>
+</ul>
+</li>
+</ul></div>            </div>
+		</nav>
+    </div>
+</body>
+</html>
+
+    <div class="sitename ms-dialogHidden">
+    <div class="layer"></div>
+    <div class="container" style="position:relative;">
+        <h1>Data Hujan</h1>
+    </div>
+</div>
+<div class="breadcrumbs ms-dialogHidden">
+        <div class="breadcrumb">
+            <div class="container pb-1">
+<span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Go to Laman Web Rasmi Public Infobanjir." href="https://publicinfobanjir.water.gov.my" class="home"><span property="name">Utama</span></a><meta property="position" content="1"></span> / <span property="itemListElement" typeof="ListItem"><span property="name">Hujan</span><meta property="position" content="2"></span> / <span property="itemListElement" typeof="ListItem"><span property="name">Data Hujan</span><meta property="position" content="2"></span>				                            
+</div>
+        </div>
+    </div>
+        <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static;">
+           
+    <div class = "container-fluid" style="margin-top:10px; margin:5px;">
+       <table class='normaltable' border="1" style="margin-bottom:5px;">
+        <thead> 
+           <tr>
+           <th style="background-color:#f0eeeb; padding:7px;">
+        <div class="form-group">
+            <div class="row">
+                <label for="state1" class="col-md-1 control-label">Negeri:</label>
+                <div class="col-md-3">
+                    <select name="state1" id="state1" class="form-select">
+                                                <option value="Perlis" >
+                        Perlis
+                    </option>
+                                                <option value="Kedah" >
+                        Kedah
+                    </option>
+                                                <option value="Pulau Pinang" >
+                        Pulau Pinang
+                    </option>
+                                                <option value="Perak" >
+                        Perak
+                    </option>
+                                                <option value="Selangor" >
+                        Selangor
+                    </option>
+                                                <option value="Wilayah Persekutuan Kuala Lumpur" >
+                        Wilayah Persekutuan Kuala Lumpur
+                    </option>
+                                                <option value="Negeri Sembilan" >
+                        Negeri Sembilan
+                    </option>
+                                                <option value="Melaka" >
+                        Melaka
+                    </option>
+                                                <option value="Johor" >
+                        Johor
+                    </option>
+                                                <option value="Pahang" >
+                        Pahang
+                    </option>
+                                                <option value="Terengganu" >
+                        Terengganu
+                    </option>
+                                                <option value="Kelantan" selected>
+                        Kelantan
+                    </option>
+                                                <option value="Sarawak" >
+                        Sarawak
+                    </option>
+                                                <option value="Sabah" >
+                        Sabah
+                    </option>
+                                                <option value="Wilayah Persekutuan Labuan" >
+                        Wilayah Persekutuan Labuan
+                    </option>
+                                            </select>
+                </div>
+
+                    <label for="district1" class="col-md-1 control-label">Daerah:</label>
+                    <div class="col-md-3">
+                    <select name="district1" id="district1" class="form-select">
+                    <option value="ALL">ALL</option>
+                                                    <option value="Tanah Merah" >
+                                Tanah Merah
+                            </option>
+                                                    <option value="Gua Musang" >
+                                Gua Musang
+                            </option>
+                                                    <option value="Machang" >
+                                Machang
+                            </option>
+                                                    <option value="Kota Bharu" >
+                                Kota Bharu
+                            </option>
+                                                    <option value="Tumpat" >
+                                Tumpat
+                            </option>
+                                                    <option value="Jeli" >
+                                Jeli
+                            </option>
+                                                    <option value="Kuala Krai" >
+                                Kuala Krai
+                            </option>
+                                                    <option value="Bachok" >
+                                Bachok
+                            </option>
+                                                    <option value="Pasir Mas" >
+                                Pasir Mas
+                            </option>
+                                                    <option value="Pasir Puteh" >
+                                Pasir Puteh
+                            </option>
+                                            </select>
+                </div>
+
+                    <label for="station1" class="col-md-1 control-label">Stesen:</label>
+                    <div class="col-md-2">
+                    <select id="station1" name="station1" class="form-select">
+                        <option value="ALL">ALL</option>
+                                                <option value="Empangan Bukit Kwong (F1)" >
+                                Empangan Bukit Kwong (F1)
+                            </option>
+                                                <option value="Gua Musang" >
+                                Gua Musang
+                            </option>
+                                                <option value="Ldg. Kago Plantation Sdn. Bhd. (F1)" >
+                                Ldg. Kago Plantation Sdn. Bhd. (F1)
+                            </option>
+                                                <option value="Kg. Air Satan" >
+                                Kg. Air Satan
+                            </option>
+                                                <option value="Kg. Manik Urai (F1)" >
+                                Kg. Manik Urai (F1)
+                            </option>
+                                                <option value="Kg. Tualang" >
+                                Kg. Tualang
+                            </option>
+                                                <option value="Kg. Chenulang (F1)" >
+                                Kg. Chenulang (F1)
+                            </option>
+                                                <option value="Chabai (F1)" >
+                                Chabai (F1)
+                            </option>
+                                                <option value="Ladang Mentara (RHN)" >
+                                Ladang Mentara (RHN)
+                            </option>
+                                                <option value="Limau Kasturi" >
+                                Limau Kasturi
+                            </option>
+                                                <option value="SM Cherang Ruku (PRAB2)" >
+                                SM Cherang Ruku (PRAB2)
+                            </option>
+                                                <option value="Rumah Pam JPS Meranti (RHN)" >
+                                Rumah Pam JPS Meranti (RHN)
+                            </option>
+                                                <option value="Ladang Kerilla" >
+                                Ladang Kerilla
+                            </option>
+                                                <option value="Gunung Stong (F1)" >
+                                Gunung Stong (F1)
+                            </option>
+                                                <option value="JPS Machang (F1)" >
+                                JPS Machang (F1)
+                            </option>
+                                                <option value="Kuala Krai" >
+                                Kuala Krai
+                            </option>
+                                                <option value="Kg. Tg. Abd. Rahman Kuala Balah (F1)" >
+                                Kg. Tg. Abd. Rahman Kuala Balah (F1)
+                            </option>
+                                                <option value="Air Bol (F1)" >
+                                Air Bol (F1)
+                            </option>
+                                                <option value="Kg. Laloh (RHN)" >
+                                Kg. Laloh (RHN)
+                            </option>
+                                                <option value="Air Lanas (F1)" >
+                                Air Lanas (F1)
+                            </option>
+                                                <option value="Kg. Pulai (F1)" >
+                                Kg. Pulai (F1)
+                            </option>
+                                                <option value="Kg. Jambu (F1)" >
+                                Kg. Jambu (F1)
+                            </option>
+                                                <option value="Felda Ciku 3 (F1)" >
+                                Felda Ciku 3 (F1)
+                            </option>
+                                                <option value="Jabatan Orang Asli, Kuala Betis (F1)" >
+                                Jabatan Orang Asli, Kuala Betis (F1)
+                            </option>
+                                                <option value="Kusial (F1)" >
+                                Kusial (F1)
+                            </option>
+                                                <option value="Tambatan DRaja (F1)" >
+                                Tambatan DRaja (F1)
+                            </option>
+                                                <option value="Kg. Aring (RHN)" >
+                                Kg. Aring (RHN)
+                            </option>
+                                                <option value="Bachok (RHN)" >
+                                Bachok (RHN)
+                            </option>
+                                                <option value="Kg. Lebir  (F1)" >
+                                Kg. Lebir  (F1)
+                            </option>
+                                                <option value="Kg. Jenob (F1)" >
+                                Kg. Jenob (F1)
+                            </option>
+                                                <option value="Rantau Panjang (F1)" >
+                                Rantau Panjang (F1)
+                            </option>
+                                                <option value="Air Mulih (F1)" >
+                                Air Mulih (F1)
+                            </option>
+                                                <option value="Upper Chiku (F1)" >
+                                Upper Chiku (F1)
+                            </option>
+                                                <option value="MRSM JELI GEMANG" >
+                                MRSM JELI GEMANG
+                            </option>
+                                                <option value="Peringat" >
+                                Peringat
+                            </option>
+                                                <option value="Belatop (F1)" >
+                                Belatop (F1)
+                            </option>
+                                                <option value="Batu 13 (RHN)" >
+                                Batu 13 (RHN)
+                            </option>
+                                                <option value="SK Kemahang 3 (F1)" >
+                                SK Kemahang 3 (F1)
+                            </option>
+                                                <option value="Kg. Lawar (F1)" >
+                                Kg. Lawar (F1)
+                            </option>
+                                                <option value="Tumpat (RHN)" >
+                                Tumpat (RHN)
+                            </option>
+                                                <option value="Jambatan Melor" >
+                                Jambatan Melor
+                            </option>
+                                                <option value="Pasir Puteh (F1)" >
+                                Pasir Puteh (F1)
+                            </option>
+                                                <option value="IPMI Zon Timur (F1)" >
+                                IPMI Zon Timur (F1)
+                            </option>
+                                                <option value="Sek. Keb. Chalil (F1)" >
+                                Sek. Keb. Chalil (F1)
+                            </option>
+                                            </select>
+                </div>
+                </th>
+            </tr>
+            </thead> 
+        </table>
+
+
+        <!-- <div class="form-group">
+        <form class="border border-dark p-3 bg-light rounded my-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="state1" class="form-label">Negeri:</label>
+                    <select name="state1" id="state1" class="form-select">
+                                                    <option value="Perlis" >
+                                Perlis
+                            </option>
+                                                    <option value="Kedah" >
+                                Kedah
+                            </option>
+                                                    <option value="Pulau Pinang" >
+                                Pulau Pinang
+                            </option>
+                                                    <option value="Perak" >
+                                Perak
+                            </option>
+                                                    <option value="Selangor" >
+                                Selangor
+                            </option>
+                                                    <option value="Wilayah Persekutuan Kuala Lumpur" >
+                                Wilayah Persekutuan Kuala Lumpur
+                            </option>
+                                                    <option value="Negeri Sembilan" >
+                                Negeri Sembilan
+                            </option>
+                                                    <option value="Melaka" >
+                                Melaka
+                            </option>
+                                                    <option value="Johor" >
+                                Johor
+                            </option>
+                                                    <option value="Pahang" >
+                                Pahang
+                            </option>
+                                                    <option value="Terengganu" >
+                                Terengganu
+                            </option>
+                                                    <option value="Kelantan" selected>
+                                Kelantan
+                            </option>
+                                                    <option value="Sarawak" >
+                                Sarawak
+                            </option>
+                                                    <option value="Sabah" >
+                                Sabah
+                            </option>
+                                                    <option value="Wilayah Persekutuan Labuan" >
+                                Wilayah Persekutuan Labuan
+                            </option>
+                                            </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="district1" class="form-label">Daerah:</label>
+                    <select name="district1" id="district1" class="form-select">
+                    <option value="ALL">ALL</option>
+                                                    <option value="Tanah Merah" >
+                                Tanah Merah
+                            </option>
+                                                    <option value="Gua Musang" >
+                                Gua Musang
+                            </option>
+                                                    <option value="Machang" >
+                                Machang
+                            </option>
+                                                    <option value="Kota Bharu" >
+                                Kota Bharu
+                            </option>
+                                                    <option value="Tumpat" >
+                                Tumpat
+                            </option>
+                                                    <option value="Jeli" >
+                                Jeli
+                            </option>
+                                                    <option value="Kuala Krai" >
+                                Kuala Krai
+                            </option>
+                                                    <option value="Bachok" >
+                                Bachok
+                            </option>
+                                                    <option value="Pasir Mas" >
+                                Pasir Mas
+                            </option>
+                                                    <option value="Pasir Puteh" >
+                                Pasir Puteh
+                            </option>
+                                            </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="station1" class="form-label">Stesen:</label>
+                    <select id="station1" name="station1" class="form-select">
+                        <option value="ALL">ALL</option>
+                                                    <option value="Empangan Bukit Kwong (F1)" >
+                                Empangan Bukit Kwong (F1)
+                            </option>
+                                                    <option value="Gua Musang" >
+                                Gua Musang
+                            </option>
+                                                    <option value="Ldg. Kago Plantation Sdn. Bhd. (F1)" >
+                                Ldg. Kago Plantation Sdn. Bhd. (F1)
+                            </option>
+                                                    <option value="Kg. Air Satan" >
+                                Kg. Air Satan
+                            </option>
+                                                    <option value="Kg. Manik Urai (F1)" >
+                                Kg. Manik Urai (F1)
+                            </option>
+                                                    <option value="Kg. Tualang" >
+                                Kg. Tualang
+                            </option>
+                                                    <option value="Kg. Chenulang (F1)" >
+                                Kg. Chenulang (F1)
+                            </option>
+                                                    <option value="Chabai (F1)" >
+                                Chabai (F1)
+                            </option>
+                                                    <option value="Ladang Mentara (RHN)" >
+                                Ladang Mentara (RHN)
+                            </option>
+                                                    <option value="Limau Kasturi" >
+                                Limau Kasturi
+                            </option>
+                                                    <option value="SM Cherang Ruku (PRAB2)" >
+                                SM Cherang Ruku (PRAB2)
+                            </option>
+                                                    <option value="Rumah Pam JPS Meranti (RHN)" >
+                                Rumah Pam JPS Meranti (RHN)
+                            </option>
+                                                    <option value="Ladang Kerilla" >
+                                Ladang Kerilla
+                            </option>
+                                                    <option value="Gunung Stong (F1)" >
+                                Gunung Stong (F1)
+                            </option>
+                                                    <option value="JPS Machang (F1)" >
+                                JPS Machang (F1)
+                            </option>
+                                                    <option value="Kuala Krai" >
+                                Kuala Krai
+                            </option>
+                                                    <option value="Kg. Tg. Abd. Rahman Kuala Balah (F1)" >
+                                Kg. Tg. Abd. Rahman Kuala Balah (F1)
+                            </option>
+                                                    <option value="Air Bol (F1)" >
+                                Air Bol (F1)
+                            </option>
+                                                    <option value="Kg. Laloh (RHN)" >
+                                Kg. Laloh (RHN)
+                            </option>
+                                                    <option value="Air Lanas (F1)" >
+                                Air Lanas (F1)
+                            </option>
+                                                    <option value="Kg. Pulai (F1)" >
+                                Kg. Pulai (F1)
+                            </option>
+                                                    <option value="Kg. Jambu (F1)" >
+                                Kg. Jambu (F1)
+                            </option>
+                                                    <option value="Felda Ciku 3 (F1)" >
+                                Felda Ciku 3 (F1)
+                            </option>
+                                                    <option value="Jabatan Orang Asli, Kuala Betis (F1)" >
+                                Jabatan Orang Asli, Kuala Betis (F1)
+                            </option>
+                                                    <option value="Kusial (F1)" >
+                                Kusial (F1)
+                            </option>
+                                                    <option value="Tambatan DRaja (F1)" >
+                                Tambatan DRaja (F1)
+                            </option>
+                                                    <option value="Kg. Aring (RHN)" >
+                                Kg. Aring (RHN)
+                            </option>
+                                                    <option value="Bachok (RHN)" >
+                                Bachok (RHN)
+                            </option>
+                                                    <option value="Kg. Lebir  (F1)" >
+                                Kg. Lebir  (F1)
+                            </option>
+                                                    <option value="Kg. Jenob (F1)" >
+                                Kg. Jenob (F1)
+                            </option>
+                                                    <option value="Rantau Panjang (F1)" >
+                                Rantau Panjang (F1)
+                            </option>
+                                                    <option value="Air Mulih (F1)" >
+                                Air Mulih (F1)
+                            </option>
+                                                    <option value="Upper Chiku (F1)" >
+                                Upper Chiku (F1)
+                            </option>
+                                                    <option value="MRSM JELI GEMANG" >
+                                MRSM JELI GEMANG
+                            </option>
+                                                    <option value="Peringat" >
+                                Peringat
+                            </option>
+                                                    <option value="Belatop (F1)" >
+                                Belatop (F1)
+                            </option>
+                                                    <option value="Batu 13 (RHN)" >
+                                Batu 13 (RHN)
+                            </option>
+                                                    <option value="SK Kemahang 3 (F1)" >
+                                SK Kemahang 3 (F1)
+                            </option>
+                                                    <option value="Kg. Lawar (F1)" >
+                                Kg. Lawar (F1)
+                            </option>
+                                                    <option value="Tumpat (RHN)" >
+                                Tumpat (RHN)
+                            </option>
+                                                    <option value="Jambatan Melor" >
+                                Jambatan Melor
+                            </option>
+                                                    <option value="Pasir Puteh (F1)" >
+                                Pasir Puteh (F1)
+                            </option>
+                                                    <option value="IPMI Zon Timur (F1)" >
+                                IPMI Zon Timur (F1)
+                            </option>
+                                                    <option value="Sek. Keb. Chalil (F1)" >
+                                Sek. Keb. Chalil (F1)
+                            </option>
+                                            </select>
+                </div>
+            </div>
+        </form>
+    </div> -->
+    <div class="custyle" style="overflow:auto;">
+        <table class="normaltable" id="normaltable1">
+        <thead>
+            <tr>
+                <th rowspan="2" style="background-color: #2d7fc7; color: white;">Bil.</th>
+                <th rowspan="2" style="background-color: #2d7fc7; color: white;">ID Stesen</th>
+                <th rowspan="2" style="background-color: #2d7fc7; color: white;">Nama Stesen</th>
+                <th rowspan="2" style="background-color: #2d7fc7; color: white;">Daerah</th>
+                <th rowspan="2" style="background-color: #2d7fc7; color: white;">Kemaskini Terakhir</th>
+                <th colspan="6" style="background-color: #2d7fc7; color: white;">Taburan Hujan Harian</th>
+                <th rowspan="2" style="background-color: #2d7fc7; color: white;">Taburan Hujan dari Tengah Malam(01/11/2026)</th>
+                <th rowspan="2" style="background-color: #2d7fc7; color: white;">Jumlah 1 Jam (Terkini)</th>
+            </tr>
+            <tr>
+                <th style="background-color:#aed9e5; color: black;">26/10/2026</th>
+                <th style="background-color:#aed9e5; color: black;">27/10/2026</th>
+                <th style="background-color:#aed9e5; color: black;">28/10/2026</th>
+                <th style="background-color:#aed9e5; color: black;">29/10/2026</th>
+                <th style="background-color:#aed9e5; color: black;">30/10/2026</th>
+                <th style="background-color:#aed9e5; color: black;">31/10/2026</th>
+            </tr>
+        </thead> 
+        <tbody id="rainfall-data">
+                                                <tr>
+                        <td>1</td>
+                        <td>0720071RF</td>
+                        <td>Peringat</td>
+                        <td>Kota Bharu</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.00</td>
+                        <td>65.50</td>
+                        <td>1.50</td>
+                        <td>0.50</td>
+                        <td>4.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/49?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td>0730061RF</td>
+                        <td>IPMI Zon Timur (F1)</td>
+                        <td>Kota Bharu</td>
+                        <td>31/10/2026 16:30:00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.50</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/54?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td>0730103RF</td>
+                        <td>Air Mulih (F1)</td>
+                        <td>Pasir Mas</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.00</td>
+                        <td>52.50</td>
+                        <td>1.00</td>
+                        <td>0.00</td>
+                        <td>1.00</td>
+                        <td>0.50</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/145?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td>0730281RF</td>
+                        <td>Ladang Mentara (RHN)</td>
+                        <td>Gua Musang</td>
+                        <td>01/11/2026 00:30:00</td>
+                        <td>5.00</td>
+                        <td>24.00</td>
+                        <td>14.00</td>
+                        <td>8.00</td>
+                        <td>2.00</td>
+                        <td>0.50</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/121?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>5</td>
+                        <td>0730671RF</td>
+                        <td>Tambatan DRaja (F1)</td>
+                        <td>Kota Bharu</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.00</td>
+                        <td>21.00</td>
+                        <td>5.00</td>
+                        <td>1.50</td>
+                        <td>2.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/53?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>6</td>
+                        <td>0730861RF(L)</td>
+                        <td>Empangan Bukit Kwong (F1)</td>
+                        <td>Pasir Mas</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.00</td>
+                        <td>87.00</td>
+                        <td>1.00</td>
+                        <td>0.50</td>
+                        <td>1.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/82?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>7</td>
+                        <td>0730871RF</td>
+                        <td>Kg. Manik Urai (F1)</td>
+                        <td>Kuala Krai</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>5.50</td>
+                        <td>9.50</td>
+                        <td>2.00</td>
+                        <td>12.00</td>
+                        <td>0.50</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/60?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>8</td>
+                        <td>0730881RF</td>
+                        <td>Air Lanas (F1)</td>
+                        <td>Jeli</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.50</td>
+                        <td>26.00</td>
+                        <td>1.00</td>
+                        <td>0.00</td>
+                        <td>0.50</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/44?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>9</td>
+                        <td>0730891RF</td>
+                        <td>Belatop (F1)</td>
+                        <td>Gua Musang</td>
+                        <td>31/10/2026 19:30:00</td>
+                        <td>1.00</td>
+                        <td></td>
+                        <td>20.50</td>
+                        <td>25.50</td>
+                        <td></td>
+                        <td>0.50</td>
+                        <!-- <td>0.50</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/1?districtId=0" target="_blank">0.50</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>10</td>
+                        <td>0730921RF</td>
+                        <td>Kg. Lawar (F1)</td>
+                        <td>Jeli</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.00</td>
+                        <td>65.00</td>
+                        <td>0.50</td>
+                        <td>3.50</td>
+                        <td>0.00</td>
+                        <td>2.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/42?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>11</td>
+                        <td>0731001RF</td>
+                        <td>Pasir Puteh (F1)</td>
+                        <td>Pasir Puteh</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.00</td>
+                        <td>9.00</td>
+                        <td>2.50</td>
+                        <td>5.00</td>
+                        <td>4.00</td>
+                        <td>0.50</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/85?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>12</td>
+                        <td>0731021RF</td>
+                        <td>Kg. Aring (RHN)</td>
+                        <td>Gua Musang</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.00</td>
+                        <td>14.00</td>
+                        <td>18.00</td>
+                        <td>0.00</td>
+                        <td>1.00</td>
+                        <td>3.50</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/130?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>13</td>
+                        <td>0731041RF</td>
+                        <td>Chabai (F1)</td>
+                        <td>Gua Musang</td>
+                        <td>10/11/2024 04:15:00</td>
+                        <td>0.00</td>
+                        <td>0.50</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <!-- <td>1.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/5?districtId=0" target="_blank">1.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.50</td>
+                    </tr>
+                                    <tr>
+                        <td>14</td>
+                        <td>0731051RF</td>
+                        <td>Felda Ciku 3 (F1)</td>
+                        <td>Gua Musang</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.50</td>
+                        <td>7.50</td>
+                        <td>2.50</td>
+                        <td>0.00</td>
+                        <td>0.50</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/17?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>15</td>
+                        <td>0731071RF</td>
+                        <td>Gua Musang</td>
+                        <td>Gua Musang</td>
+                        <td>31/10/2026 23:30:00</td>
+                        <td></td>
+                        <td>21.50</td>
+                        <td>8.50</td>
+                        <td>0.50</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/128?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>16</td>
+                        <td>0731101RF</td>
+                        <td>Jabatan Orang Asli, Kuala Betis (F1)</td>
+                        <td>Gua Musang</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>7.00</td>
+                        <td>46.00</td>
+                        <td>2.50</td>
+                        <td>4.50</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/4?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>17</td>
+                        <td>0731111RF</td>
+                        <td>Kg. Chenulang (F1)</td>
+                        <td>Kuala Krai</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.50</td>
+                        <td>17.50</td>
+                        <td>10.50</td>
+                        <td>13.50</td>
+                        <td>1.00</td>
+                        <td>2.50</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/62?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>18</td>
+                        <td>0731121RF</td>
+                        <td>Kg. Lebir  (F1)</td>
+                        <td>Gua Musang</td>
+                        <td>01/11/2026 00:30:00</td>
+                        <td>0.50</td>
+                        <td>10.00</td>
+                        <td>13.00</td>
+                        <td>0.00</td>
+                        <td>16.50</td>
+                        <td>1.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/20?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>19</td>
+                        <td>0731131RF</td>
+                        <td>Kg. Tg. Abd. Rahman Kuala Balah (F1)</td>
+                        <td>Jeli</td>
+                        <td>01/11/2026 00:15:00</td>
+                        <td>2.50</td>
+                        <td>39.00</td>
+                        <td>30.00</td>
+                        <td>4.50</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/41?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>20</td>
+                        <td>0731141RF</td>
+                        <td>Ldg. Kago Plantation Sdn. Bhd. (F1)</td>
+                        <td>Gua Musang</td>
+                        <td>31/10/2026 23:30:00</td>
+                        <td>16.00</td>
+                        <td>26.50</td>
+                        <td>4.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/10?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>21</td>
+                        <td>0731151RF</td>
+                        <td>Ladang Kerilla</td>
+                        <td>Tanah Merah</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.50</td>
+                        <td>19.00</td>
+                        <td>1.00</td>
+                        <td>5.50</td>
+                        <td>0.50</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/87?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>22</td>
+                        <td>0731201RF</td>
+                        <td>Sek. Keb. Chalil (F1)</td>
+                        <td>Gua Musang</td>
+                        <td>31/10/2026 23:30:00</td>
+                        <td>0.00</td>
+                        <td>4.50</td>
+                        <td>9.50</td>
+                        <td>2.00</td>
+                        <td>0.00</td>
+                        <td>0.50</td>
+                        <!-- <td>0.50</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/37?districtId=0" target="_blank">0.50</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>23</td>
+                        <td>0731211RF</td>
+                        <td>SK Kemahang 3 (F1)</td>
+                        <td>Tanah Merah</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.00</td>
+                        <td>8.50</td>
+                        <td>0.00</td>
+                        <td>1.50</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/90?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>24</td>
+                        <td>0731231RF</td>
+                        <td>Upper Chiku (F1)</td>
+                        <td>Gua Musang</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.50</td>
+                        <td>52.00</td>
+                        <td>13.00</td>
+                        <td>0.00</td>
+                        <td>1.50</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/13?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>25</td>
+                        <td>0731241RF</td>
+                        <td>Air Bol (F1)</td>
+                        <td>Jeli</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>2.00</td>
+                        <td>74.50</td>
+                        <td>39.00</td>
+                        <td>428.00</td>
+                        <td>0.50</td>
+                        <td>1.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/38?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>26</td>
+                        <td>0731251RF</td>
+                        <td>Bachok (RHN)</td>
+                        <td>Bachok</td>
+                        <td>01/11/2026 00:15:00</td>
+                        <td>0.50</td>
+                        <td>6.50</td>
+                        <td>2.00</td>
+                        <td>2.00</td>
+                        <td>5.50</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/146?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>27</td>
+                        <td>0731311RF</td>
+                        <td>JPS Machang (F1)</td>
+                        <td>Machang</td>
+                        <td>31/10/2026 23:15:00</td>
+                        <td>0.50</td>
+                        <td>7.50</td>
+                        <td>17.50</td>
+                        <td>8.50</td>
+                        <td>1.50</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/74?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>28</td>
+                        <td>0731351RF</td>
+                        <td>Kg. Pulai (F1)</td>
+                        <td>Gua Musang</td>
+                        <td>01/11/2026 00:30:00</td>
+                        <td>30.50</td>
+                        <td>31.00</td>
+                        <td>12.00</td>
+                        <td>1.50</td>
+                        <td>2.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/11?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>29</td>
+                        <td>0731371RF</td>
+                        <td>Kusial (F1)</td>
+                        <td>Tanah Merah</td>
+                        <td>31/10/2026 23:30:00</td>
+                        <td>0.00</td>
+                        <td>2.00</td>
+                        <td>1.50</td>
+                        <td>2.50</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/75?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>30</td>
+                        <td>0731391RF</td>
+                        <td>Tumpat (RHN)</td>
+                        <td>Tumpat</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.00</td>
+                        <td>3.50</td>
+                        <td>2.00</td>
+                        <td>0.00</td>
+                        <td>2.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/148?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>31</td>
+                        <td>0740081RF</td>
+                        <td>MRSM JELI GEMANG</td>
+                        <td>Jeli</td>
+                        <td>01/11/2026 00:30:00</td>
+                        <td>0.50</td>
+                        <td>37.00</td>
+                        <td>2.00</td>
+                        <td>1.50</td>
+                        <td>0.50</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/152?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>32</td>
+                        <td>0740111RF</td>
+                        <td>Kg. Jambu (F1)</td>
+                        <td>Tumpat</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.00</td>
+                        <td>9.00</td>
+                        <td>1.00</td>
+                        <td>0.00</td>
+                        <td>1.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/81?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>33</td>
+                        <td>0740121RF</td>
+                        <td>Rantau Panjang (F1)</td>
+                        <td>Pasir Mas</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.50</td>
+                        <td>59.50</td>
+                        <td>1.00</td>
+                        <td>0.50</td>
+                        <td>1.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/78?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>34</td>
+                        <td>0740261RF</td>
+                        <td>Kg. Jenob (F1)</td>
+                        <td>Tanah Merah</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>6.50</td>
+                        <td>50.00</td>
+                        <td>19.00</td>
+                        <td>6.50</td>
+                        <td>0.50</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/93?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>35</td>
+                        <td>0740301RF</td>
+                        <td>Kg. Air Satan</td>
+                        <td>Jeli</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>2.00</td>
+                        <td>27.00</td>
+                        <td>2.00</td>
+                        <td>2.50</td>
+                        <td>0.50</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/113?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>36</td>
+                        <td>0740321RF</td>
+                        <td>Rumah Pam JPS Meranti (RHN)</td>
+                        <td>Pasir Mas</td>
+                        <td>01/11/2026 00:30:00</td>
+                        <td>0.50</td>
+                        <td>22.50</td>
+                        <td>1.00</td>
+                        <td>0.00</td>
+                        <td>1.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/116?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>37</td>
+                        <td>5020030</td>
+                        <td>Limau Kasturi</td>
+                        <td>Gua Musang</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.00</td>
+                        <td>20.50</td>
+                        <td>24.00</td>
+                        <td>3.00</td>
+                        <td>4.50</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/131?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>38</td>
+                        <td>5222052</td>
+                        <td>Kg. Tualang</td>
+                        <td>Kuala Krai</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.00</td>
+                        <td>5.50</td>
+                        <td>1.00</td>
+                        <td>7.50</td>
+                        <td>6.00</td>
+                        <td>0.50</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/132?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>39</td>
+                        <td>5320038</td>
+                        <td>Kuala Krai</td>
+                        <td>Kuala Krai</td>
+                        <td>31/10/2026 23:30:00</td>
+                        <td>0.50</td>
+                        <td>20.00</td>
+                        <td>0.00</td>
+                        <td>3.00</td>
+                        <td>0.50</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/135?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>40</td>
+                        <td>5322044</td>
+                        <td>Kg. Laloh (RHN)</td>
+                        <td>Kuala Krai</td>
+                        <td>31/10/2026 23:30:00</td>
+                        <td>0.00</td>
+                        <td>9.50</td>
+                        <td>0.50</td>
+                        <td>6.00</td>
+                        <td>4.00</td>
+                        <td>1.50</td>
+                        <!-- <td>1.50</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/134?districtId=0" target="_blank">1.50</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>41</td>
+                        <td>5621071</td>
+                        <td>Batu 13 (RHN)</td>
+                        <td>Jeli</td>
+                        <td>01/11/2026 00:30:00</td>
+                        <td>0.00</td>
+                        <td>84.00</td>
+                        <td>1.50</td>
+                        <td>3.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/137?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>42</td>
+                        <td>5824080(L)</td>
+                        <td>SM Cherang Ruku (PRAB2)</td>
+                        <td>Pasir Puteh</td>
+                        <td>01/11/2026 00:30:00</td>
+                        <td>0.00</td>
+                        <td>13.00</td>
+                        <td>8.50</td>
+                        <td>2.50</td>
+                        <td>4.50</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/115?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>43</td>
+                        <td>DBCK0002</td>
+                        <td>Jambatan Melor</td>
+                        <td>Bachok</td>
+                        <td>01/11/2026 00:30:00</td>
+                        <td>0.00</td>
+                        <td>73.00</td>
+                        <td>1.00</td>
+                        <td>0.50</td>
+                        <td>3.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/122?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    <tr>
+                        <td>44</td>
+                        <td>DKKI0001</td>
+                        <td>Gunung Stong (F1)</td>
+                        <td>Kuala Krai</td>
+                        <td>01/11/2026 00:45:00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <!-- <td>0.00</td> -->
+                        <td class="graph">
+                                                            <a href="https://infobanjirjpskelantan.water.gov.my/Rainfall/Station/57?districtId=0" target="_blank">0.00</a>
+                                                    </td>
+                        <td class="state-cell normal">0.00</td>
+                    </tr>
+                                    </tbody>
+    </table>
+
+
+    <div class="note">
+        *Hujan lebih daripada 60 mm dalam tempoh 2 hingga 4 jam (secara lazim) boleh menyebabkan banjir kilat. Walau bagaimanapun, hujan monsun untuk jangka masa yang lama dengan hujan lebat berselang seli dengan intensiti yang tinggi dalam tempoh 24 jam.
+    </div>
+
+     <!-- Box -->
+     <div class="box" style="margin-bottom: 25px;">
+                <ol class="legend horiz" style="padding-right:17px; padding-left:5px;
+                                margin-top: 20px; margin-bottom: 5px;">
+                    <p id="p">Kategori Keamatan Hujan (dalam satu jam)</p>
+                    <table>
+                    <tbody>
+                        <tr>
+                            <td style="text-align:left;">Renyai</td>
+                            <td style="text-align:left;">1-10 (mm)</td>
+                            <td><div class="key one"></div></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left;">Sederhana</td>
+                            <td style="text-align:left;">11-30 (mm)</td>
+                            <td><div class="key two"></div></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left;">Lebat</td>
+                            <td>31-60 (mm)</td>
+                            <td><div class="key three"></div></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left;">Sangat Lebat</td>
+                            <td style="text-align:left;"> >60 (mm)</td>
+                            <td><div class="key four"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // When the state dropdown changes
+        $('#state1').change(function() {
+            $('#district1').empty();
+            $('#station1').empty();
+            $('#rainfall-data').empty();
+            const url = 'https://publicinfobanjir.water.gov.my/api/district';
+            console.log('Correct URL:', url);
+            var selectedState = $(this).val();
+            console.log(JSON.stringify({ state: selectedState, parameter: 'rainfall' }));
+            // fetch all district base on state
+            fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 1|qPD6pk5OPGVIqNHAqMFtyfCDb0vnUDTFqgDkakfia33cbb7c'
+            },
+            body: JSON.stringify({ state: selectedState, parameter: 'rainfall' })
+            })
+            .then(response => {
+                console.log('Response Object:', response);
+                console.log('Status Code:', response.status); // HTTP status code (e.g., 200, 404, 500)
+                console.log('Headers:', response.headers);   // Check response headers
+                // return response.text(); // Read response as text
+                // Clear the current options in the district select dropdown
+                return response.json(); 
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                // Check if data exists
+                if (data.length > 0) {
+                    $('#district1').append('<option value="All">All</option>');
+                    data.forEach(function(district) {
+                        var option = $('<option>').val(district.district).text(district.district);
+                        $('#district1').append(option);
+                    });
+                } else {
+                    $('#district1').append('<option value="All">All</option>');
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+
+            // fetch all station base on state
+            const url2 = 'https://publicinfobanjir.water.gov.my/api/station';
+            fetch(url2, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 1|qPD6pk5OPGVIqNHAqMFtyfCDb0vnUDTFqgDkakfia33cbb7c'
+            },
+            body: JSON.stringify({ state: selectedState, district: 'ALL', parameter: 'rainfall' })
+            })
+            .then(response => {
+                console.log('Response Object:', response);
+                console.log('Status Code:', response.status); // HTTP status code (e.g., 200, 404, 500)
+                console.log('Headers:', response.headers);   // Check response headers
+                // return response.text(); // Read response as text
+                // Clear the current options in the district select dropdown
+                return response.json(); 
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                // Check if data exists
+                if (data.length > 0) {
+                    $('#station1').append('<option value="All">All</option>');
+                    data.forEach(function(station) {
+                        var option = $('<option>').val(station.station_name).text(station.station_name);
+                        $('#station1').append(option);
+                    });
+                } else {
+                    $('#station1').append('<option value="All">All</option>');
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+
+            // fetch all data rainfall base on state
+            const url3 = 'https://publicinfobanjir.water.gov.my/api/detailstation';
+            fetch(url3, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 1|qPD6pk5OPGVIqNHAqMFtyfCDb0vnUDTFqgDkakfia33cbb7c'
+            },
+            body: JSON.stringify({ state: selectedState, district: 'ALL', station_name: 'ALL', parameter: 'rainfall' })
+            })
+            .then(response => {
+                console.log('Response Object:', response);
+                console.log('Status Code:', response.status); // HTTP status code (e.g., 200, 404, 500)
+                console.log('Headers:', response.headers);   // Check response headers
+                // return response.text(); // Read response as text
+                // Clear the current options in the district select dropdown
+
+                return response.json(); 
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.length > 0) {
+                    // Iterate through the response and populate the table
+                    data.forEach(function (row, index) {
+                        var tableRow = `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${row.station_id}</td>
+                                <td>${row.station_name}</td>
+                                <td>${row.district}</td>
+                                <td>${row.last_update}</td>
+                                <td>${row.rainfall_d1 ?? ''}</td>
+                                <td>${row.rainfall_d2 ?? ''}</td>
+                                <td>${row.rainfall_d3 ?? ''}</td>
+                                <td>${row.rainfall_d4 ?? ''}</td>
+                                <td>${row.rainfall_d5 ?? ''}</td>
+                                <td>${row.rainfall_d6 ?? ''}</td>
+                                <td class="graph">
+                                    ${(row.graph_url !== undefined && row.graph_url !== null) 
+                                        ? `<a href="${row.graph_url}" target="_blank">${row.rainfall_mid ?? ''}</a>` 
+                                        : `${row.rainfall_mid ?? ''}`}
+                                </td>
+                                <td class="state-cell ${row.rf_severity ? row.rf_severity.toLowerCase().replace(/\s+/g, '') : 'normal'}">${row.rf_1hr ?? ''}</td>
+
+                            </tr>
+                        `;
+                        $('#rainfall-data').append(tableRow);
+                    });
+                } else {
+                    // Display a no data available message
+                    $('#rainfall-data').append('<tr><td colspan="12" class="text-center">No data available</td></tr>');
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                $('#rainfall-data').append('<tr><td colspan="12" class="text-center">No data available</td></tr>');
+            });
+
+        });
+
+        // When the district dropdown changes
+        $('#district1').change(function() {
+            var selectedState = $('#state1').val();
+            var district = $(this).val();
+            $('#station1').empty();
+            $('#rainfall-data').empty();
+            // fetch all station base on district
+            const url2 = 'https://publicinfobanjir.water.gov.my/api/station';
+            fetch(url2, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 1|qPD6pk5OPGVIqNHAqMFtyfCDb0vnUDTFqgDkakfia33cbb7c'
+            },
+            body: JSON.stringify({ state: selectedState, district: district, parameter: 'rainfall' })
+            })
+            .then(response => {
+                console.log('Response Object:', response);
+                console.log('Status Code:', response.status); // HTTP status code (e.g., 200, 404, 500)
+                console.log('Headers:', response.headers);   // Check response headers
+                // return response.text(); // Read response as text
+                // Clear the current options in the district select dropdown
+                return response.json(); 
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                // Check if data exists
+                if (data.length > 0) {
+                    $('#station1').append('<option value="All">All</option>');
+                    data.forEach(function(station) {
+                        var option = $('<option>').val(station.station_name).text(station.station_name);
+                        $('#station1').append(option);
+                    });
+                } else {
+                    $('#station1').append('<option value="All">All</option>');
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+
+            // fetch all data rainfall base on state
+            const url3 = 'https://publicinfobanjir.water.gov.my/api/detailstation';
+            fetch(url3, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 1|qPD6pk5OPGVIqNHAqMFtyfCDb0vnUDTFqgDkakfia33cbb7c'
+            },
+            body: JSON.stringify({ state: selectedState, district: district, station_name: 'ALL', parameter: 'rainfall' })
+            })
+            .then(response => {
+                console.log('Response Object:', response);
+                console.log('Status Code:', response.status); // HTTP status code (e.g., 200, 404, 500)
+                console.log('Headers:', response.headers);   // Check response headers
+                // return response.text(); // Read response as text
+                // Clear the current options in the district select dropdown
+
+                return response.json(); 
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.length > 0) {
+                    // Iterate through the response and populate the table
+                    data.forEach(function (row, index) {
+                        var tableRow = `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${row.station_id}</td>
+                                <td>${row.station_name}</td>
+                                <td>${row.district}</td>
+                                <td>${row.last_update}</td>
+                                <td>${row.rainfall_d1 ?? ''}</td>
+                                <td>${row.rainfall_d2 ?? ''}</td>
+                                <td>${row.rainfall_d3 ?? ''}</td>
+                                <td>${row.rainfall_d4 ?? ''}</td>
+                                <td>${row.rainfall_d5 ?? ''}</td>
+                                <td>${row.rainfall_d6 ?? ''}</td>
+                                <td class="graph">
+                                    ${(row.graph_url !== undefined && row.graph_url !== null) 
+                                        ? `<a href="${row.graph_url}" target="_blank">${row.rainfall_mid ?? ''}</a>` 
+                                        : `${row.rainfall_mid ?? ''}`}
+                                </td>
+                                <td class="state-cell ${row.rf_severity ? row.rf_severity.toLowerCase().replace(/\s+/g, '') : 'normal'}">${row.rf_1hr ?? ''}</td>
+                            </tr>
+                        `;
+                        $('#rainfall-data').append(tableRow);
+                    });
+                } else {
+                    // Display a no data available message
+                    $('#rainfall-data').append('<tr><td colspan="12" class="text-center">No data available</td></tr>');
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                $('#rainfall-data').append('<tr><td colspan="12" class="text-center">No data available</td></tr>');
+            });
+        });
+
+        // When the station dropdown changes
+        $('#station1').change(function() {
+            var selectedState = $('#state1').val();
+            var selectDistrict = $('#district1').val();
+            var station_name = $(this).val();
+            $('#rainfall-data').empty();
+
+            // fetch all data rainfall base on station
+            const url3 = 'https://publicinfobanjir.water.gov.my/api/detailstation';
+            fetch(url3, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 1|qPD6pk5OPGVIqNHAqMFtyfCDb0vnUDTFqgDkakfia33cbb7c'
+            },
+            body: JSON.stringify({ state: selectedState, district: selectDistrict, station_name: station_name, parameter: 'rainfall' })
+            })
+            .then(response => {
+                console.log('Response Object:', response);
+                console.log('Status Code:', response.status); // HTTP status code (e.g., 200, 404, 500)
+                console.log('Headers:', response.headers);   // Check response headers
+                // return response.text(); // Read response as text
+                // Clear the current options in the district select dropdown
+
+                return response.json(); 
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.length > 0) {
+                    // Iterate through the response and populate the table
+                    data.forEach(function (row, index) {
+                        var tableRow = `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${row.station_id}</td>
+                                <td>${row.station_name}</td>
+                                <td>${row.district}</td>
+                                <td>${row.last_update}</td>
+                                <td>${row.rainfall_d1 ?? ''}</td>
+                                <td>${row.rainfall_d2 ?? ''}</td>
+                                <td>${row.rainfall_d3 ?? ''}</td>
+                                <td>${row.rainfall_d4 ?? ''}</td>
+                                <td>${row.rainfall_d5 ?? ''}</td>
+                                <td>${row.rainfall_d6 ?? ''}</td>
+                                <td class="graph">
+                                    ${(row.graph_url !== undefined && row.graph_url !== null) 
+                                        ? `<a href="${row.graph_url}" target="_blank">${row.rainfall_mid ?? ''}</a>` 
+                                        : `${row.rainfall_mid ?? ''}`}
+                                </td>
+                                <td class="state-cell ${row.rf_severity ? row.rf_severity.toLowerCase().replace(/\s+/g, '') : 'normal'}">${row.rf_1hr ?? ''}</td>
+                            </tr>
+                        `;
+                        $('#rainfall-data').append(tableRow);
+                    });
+                } else {
+                    // Display a no data available message
+                    $('#rainfall-data').append('<tr><td colspan="12" class="text-center">No data available</td></tr>');
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                $('#rainfall-data').append('<tr><td colspan="12" class="text-center">No data available</td></tr>');
+            });
+        });
+
+    });
+</script>
+    <style>
+.statistictable tfoot td{border:1px solid #fff !important}
+.bottomMenu { text-align: center;}
+.bottomMenu ul { float: none;border-left: none; text-align: center;}
+.bottomMenu li { float: none; display: inline; font-size: 90%; }
+.bottomMenu li a {
+	color:white;
+	line-height:15px;
+	text-decoration:none;
+	font-weight:normal;
+	border-right: thin solid #000;
+	padding: 0 7px 0 3px;
+}
+.bottomMenu li a:hover { color:#ccc; text-decoration:underline;}
+.bottomMenu li:last-child > a {border-right: none;} /* remove pipe from last item */
+</style>
+<footer id="colophon" class="site-footer" role="contentinfo">
+    <div class="ak-container">  
+        <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6" style="text-align:  center; font-size: 90%; overflow: auto;">
+        <table class="statistictable" style="border:1px solid #FFF;">
+                <tr>
+                    <th rowspan="2" style="background-color:black;text-align:center;color:white">Statistik Capaian</th>
+                    <td style="color:white; border:1px solid #fff !important;">Hari Ini</th>
+                    <td style="color:white; border:1px solid #fff !important;">Semalam</th>
+                    <td style="color:white; border:1px solid #fff !important;">Minggu Ini</th>
+                    <td style="color:white; border:1px solid #fff !important;">Minggu Lepas</th>
+                    <td style="color:white; border:1px solid #fff !important;">Bulan Ini</th>
+                    <td style="color:white; border:1px solid #fff !important;">Bulan Lepas</th>
+                    <td style="color:white; border:1px solid #fff !important;">Setahun Terakhir</th>
+                    <td style="color:white; border:1px solid #fff !important;">Jumlah</th>
+                </tr>
+                <tr>
+                    <td style="color:white; border:1px solid #fff !important;">152</td>
+                    <td style="color:white; border:1px solid #fff !important;">334</td>
+                    <td style="color:white; border:1px solid #fff !important;">2477</td>
+                    <td style="color:white; border:1px solid #fff !important;">3361</td>
+                    <td style="color:white; border:1px solid #fff !important;">12754</td>
+                    <td style="color:white; border:1px solid #fff !important;">11653</td>
+                    <td style="color:white; border:1px solid #fff !important;">147,714</td>
+                    <td style="color:white; border:1px solid #fff !important;">503,018</td>
+                </tr>
+            </table>
+        </div>
+        <div id="step3" class="bottomMenu">
+        <div class="menu-footer-container">
+        <ul id="menu-footer-1" class="menu">
+            <li id="menu-item-820" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-820"><a href="#" class="sf-with-ul">Notis Privasi</a></li>
+            <li id="menu-item-2282" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2282"><a href="#" class="sf-with-ul">Dasar Keselamatan</a></li>
+            <li id="menu-item-2282" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2282"><a href="#" class="sf-with-ul">Penafian</a></li>
+            <li id="menu-item-2282" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2282"><a href="#" class="sf-with-ul">Soalan Lazim</a></li>
+            <li id="menu-item-2282" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2282"><a href="#" class="sf-with-ul">Peta Laman</a></li>
+            </ul>
+        </div></div>
+
+
+        <div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8" style="text-align:  center; font-size: 90%;">
+            <p>Hakcipta Terpelihara © 2019, Jabatan Pengairan Dan Saliran Malaysia<br>
+            Jabatan Pengairan Dan Saliran Malaysia, Km 7, Jalan Ampang, 68000 Ampang, Kuala Lumpur, Malaysia<br>
+            Tel: (603)-4289 5658 Fax: (603)-4256 4037<br>
+            Paparan terbaik menggunakan Safari, Google Chrome & Firefox dengan resolusi 1280x1024<br>
+            Kemaskini Terakhir: 20/11/2024 10:30</p>
+        </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
+
+

@@ -1,0 +1,8 @@
+strands-agents==1.62.0
+bedrock-agentcore==1.25.2
+boto3>=1.40
+pydantic>=2.7
+requests>=2.32
+beautifulsoup4>=4.12
+lxml>=5.2
+PyYAML>=6.0

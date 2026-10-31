@@ -1,0 +1,88 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>JagaSungai architecture</title>
+<style>
+  :root{--ink:#14232d;--muted:#5a6b76;--code:#eaf2f7;--codeb:#2f6f8f;--llm:#fff0d2;--llmb:#c07a00;--guard:#fde6e4;--guardb:#b42318;--ext:#ffffff;--extb:#9fb3c0;--rt:#f5f8fa;}
+  *{box-sizing:border-box} body{margin:0;background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:var(--ink)}
+  #c{position:relative;width:1600px;height:1000px;background:#fff}
+  .b{position:absolute;border:2px solid var(--extb);background:var(--ext);border-radius:10px;padding:10px 12px;font-size:17px;line-height:1.3;text-align:center;display:flex;flex-direction:column;justify-content:center}
+  .b small{display:block;color:var(--muted);font-size:14px;margin-top:3px}
+  .code{background:var(--code);border-color:var(--codeb)}
+  .llm{background:var(--llm);border-color:var(--llmb);border-width:3px}
+  .guard{background:var(--guard);border-color:var(--guardb);border-width:3px;border-radius:4px}
+  .t{font-weight:700}
+  .zone{position:absolute;border:2px dashed #b8c7d1;border-radius:16px;background:var(--rt)}
+  .zl{position:absolute;font-size:15px;font-weight:700;color:var(--muted);letter-spacing:.02em;text-transform:uppercase}
+  .lab{position:absolute;font-size:14px;color:var(--muted);background:#fff;padding:1px 6px;border-radius:6px;white-space:nowrap}
+  .legend{position:absolute;right:40px;bottom:28px;display:flex;gap:18px;font-size:14px;color:var(--muted)}
+  .legend i{display:inline-block;width:16px;height:16px;border-radius:4px;vertical-align:-3px;margin-right:6px;border:2px solid}
+  svg{position:absolute;inset:0;pointer-events:none}
+  h1{position:absolute;left:40px;top:22px;margin:0;font-size:26px}
+  .sub{position:absolute;left:40px;top:58px;font-size:16px;color:var(--muted)}
+</style></head><body><div id="c">
+<h1>JagaSungai · how a flood brief is made</h1>
+<div class="sub">The model decides how to say it. Code decides what is true, whether anything is sent, and to whom.</div>
+
+<!-- sources -->
+<div class="zl" style="left:40px;top:100px">Public data · free · no key</div>
+<div class="b" style="left:40px;top:128px;width:250px;height:76px"><span class="t">JPS Public InfoBanjir</span><small>river levels + 4 official thresholds, 15-min</small></div>
+<div class="b" style="left:40px;top:216px;width:250px;height:64px"><span class="t">MET warnings</span><small>api.data.gov.my</small></div>
+<div class="b" style="left:40px;top:292px;width:250px;height:64px"><span class="t">JKM InfoBencana</span><small>open relief centres</small></div>
+<div class="b" style="left:40px;top:420px;width:250px;height:64px"><span class="t">EventBridge Scheduler</span><small>every 15 min → Lambda</small></div>
+
+<!-- runtime -->
+<div class="zone" style="left:340px;top:100px;width:1000px;height:600px"></div>
+<div class="zl" style="left:362px;top:112px">Amazon Bedrock AgentCore Runtime · ap-southeast-1 · Strands GraphBuilder</div>
+
+<div class="b code" style="left:370px;top:160px;width:170px;height:80px"><span class="t">ingest</span><small>code</small></div>
+<div class="b code" style="left:600px;top:160px;width:200px;height:80px"><span class="t">classify</span><small>code · JPS bands, data faults</small></div>
+<div class="b code" style="left:600px;top:330px;width:200px;height:70px"><span class="t">quiet</span><small>no model call (most cycles)</small></div>
+<div class="b llm" style="left:870px;top:150px;width:200px;height:100px"><span class="t">write</span><small>Strands Agent · Nova 2 Lite<br>structured_output = FloodBrief</small></div>
+<div class="b code" style="left:1120px;top:150px;width:200px;height:100px"><span class="t">verify</span><small>code · every number, station,<br>band word, time</small></div>
+
+<div class="b code" style="left:1120px;top:330px;width:200px;height:90px"><span class="t">finalize</span><small>code · reviewed actions,<br>shelter, disclaimer</small></div>
+<div class="b guard" style="left:850px;top:330px;width:220px;height:90px"><span class="t">ApprovalGate</span><small>BeforeNodeCallEvent →<br>interrupt, persisted (S3)</small></div>
+<div class="b code" style="left:600px;top:500px;width:200px;height:80px"><span class="t">dispatch</span><small>code calls send_brief tool</small></div>
+<div class="b guard" style="left:850px;top:480px;width:260px;height:120px"><span class="t">DispatchGuard</span><small>BeforeToolCallEvent · allowlist ·<br>approved text only · 1/h unless<br>escalation · forbidden phrases</small></div>
+
+<!-- outside -->
+<div class="b" style="left:1380px;top:300px;width:190px;height:80px"><span class="t">WhatsApp</span><small>AWS End User<br>Messaging Social</small></div>
+<div class="b" style="left:1380px;top:470px;width:190px;height:80px;border-radius:40px"><span class="t">Coordinator</span><small>replies YA / TIDAK</small></div>
+<div class="b" style="left:1380px;top:620px;width:190px;height:70px"><span class="t">SNS → Lambda</span><small>action = reply</small></div>
+<div class="b" style="left:430px;top:760px;width:260px;height:70px"><span class="t">Amazon S3</span><small>state · snapshots · S3SessionManager</small></div>
+<div class="b" style="left:760px;top:760px;width:300px;height:70px"><span class="t">AgentCore Observability</span><small>OpenTelemetry traces → CloudWatch</small></div>
+
+<div class="lab" style="left:655px;top:270px">nothing crossed</div>
+<div class="lab" style="left:806px;top:206px">crossed</div>
+<div class="lab" style="left:905px;top:296px">rejected → errors back (≤3)</div>
+<div class="lab" style="left:1228px;top:282px">pass / fail closed</div>
+<div class="lab" style="left:1326px;top:318px">draft</div>
+<div class="lab" style="left:700px;top:448px">YA</div>
+<div class="lab" style="left:1250px;top:545px">approved brief</div>
+
+<svg viewBox="0 0 1600 1000">
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b4a55"/></marker>
+  <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b42318"/></marker></defs>
+  <g stroke="#3b4a55" stroke-width="2.2" fill="none" marker-end="url(#a)">
+    <path d="M290 166 L368 190"/><path d="M290 248 L368 205"/><path d="M290 324 L368 220"/>
+    <path d="M290 452 L355 452 L355 230 L368 230"/>
+    <path d="M540 200 L598 200"/>
+    <path d="M700 240 L700 328"/>
+    <path d="M800 200 L868 200"/>
+    <path d="M1070 185 L1118 185"/>
+    <path d="M1120 228 C1080 290 1010 290 1000 252" />
+    <path d="M1220 250 L1220 328"/>
+    <path d="M1120 375 L1072 375"/>
+    <path d="M960 420 L960 450 L700 450 L700 498"/>
+    <path d="M800 540 L848 540"/>
+    <path d="M1320 360 L1378 340"/>
+    <path d="M1475 380 L1475 468"/>
+    <path d="M1475 550 L1475 618"/>
+    <path d="M1380 655 L1342 655"/>
+    <path d="M560 700 L560 758" marker-start="url(#a)"/>
+    <path d="M910 700 L910 758"/>
+  </g>
+  <path d="M1110 560 C1250 560 1300 420 1378 350" stroke="#b42318" stroke-width="2.6" fill="none" marker-end="url(#r)"/>
+</svg>
+
+<div class="legend"><span><i style="background:var(--code);border-color:var(--codeb)"></i>deterministic code</span><span><i style="background:var(--llm);border-color:var(--llmb)"></i>language model</span><span><i style="background:var(--guard);border-color:var(--guardb)"></i>Strands hook (hard boundary)</span></div>
+</div></body></html>

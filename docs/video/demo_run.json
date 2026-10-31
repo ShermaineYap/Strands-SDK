@@ -1,0 +1,147 @@
+{
+ "cycle": {
+  "status": "interrupted",
+  "session_id": "gua-musang-kuala-betis-20261103T100500-9624a68d",
+  "interrupted": true,
+  "nodes": [
+   "ingest",
+   "classify",
+   "write",
+   "verify",
+   "write",
+   "verify",
+   "finalize"
+  ],
+  "max_band": "AMARAN",
+  "trigger": [
+   "band_rose:0730851WL(L):WASPADA->AMARAN",
+   "high_band:AMARAN"
+  ],
+  "writer": "model",
+  "attempts": 2,
+  "fail_closed": false,
+  "verifier_log": [
+   {
+    "attempt": 1,
+    "ok": false,
+    "errors": [
+     "station 0730851WL(L) (ms): claims ['BAHAYA'] but the station is at AMARAN",
+     "station 0730851WL(L) (en): claims ['BAHAYA'] but the station is at AMARAN",
+     "trend_ms: forbidden phrase 'selamat untuk tinggal'"
+    ]
+   },
+   {
+    "attempt": 2,
+    "ok": true,
+    "errors": []
+   }
+  ],
+  "message": "*JagaSungai · 03/11 10:05*\nSungai Galas di Kg. Lembaga naik ke tahap Amaran\n\n• Sg. Nenggiri di Bertam (F1): tiada data boleh dipercayai (tiada paras ambang sah).\n• Sg. Galas di Limau Kasturi 57.20 m, tahap Waspada, naik 2 m/jam.\n• Sg. Galas di Kg. Pulai (F1): tiada data boleh dipercayai (sensor rosak).\n• Sg. Galas di Kg. Lembaga kini 86.10 m, tahap Amaran, naik dari Waspada. Lagi 1.80 m ke Bahaya.\n\nBacaan pada 10:00 menunjukkan paras masih naik.\n\n*Tindakan:*\n1. Bersedia untuk berpindah. Bawa warga emas, OKU dan kanak-kanak ke tempat tinggi dahulu.\n2. Jangan menyeberang sungai atau jalan yang dinaiki air.\n3. Hubungi pegawai daerah / JKM untuk status PPS dan pengangkutan.\n\nPPS terdekat (profil): PPS contoh A (ganti dengan senarai JKM), ~1.4 km\n\nRingkasan JagaSungai berdasarkan bacaan tolok JPS awam. Bukan amaran rasmi; ikut arahan pihak berkuasa.\nhttps://publicinfobanjir.water.gov.my/waterleveldata/Kelantan",
+  "cost_usd": 0.00183,
+  "usage": {
+   "inputTokens": 1087,
+   "outputTokens": 602
+  },
+  "sent": null,
+  "denied": null
+ },
+ "resume": {
+  "status": "completed",
+  "session_id": "gua-musang-kuala-betis-20261103T100500-9624a68d",
+  "interrupted": false,
+  "nodes": [
+   "dispatch"
+  ],
+  "max_band": null,
+  "trigger": null,
+  "writer": null,
+  "attempts": null,
+  "fail_closed": false,
+  "verifier_log": [],
+  "message": null,
+  "cost_usd": null,
+  "usage": null,
+  "sent": [
+   "+60100000001",
+   "+60100000002"
+  ],
+  "denied": []
+ },
+ "unlisted": "DENIED: recipient +60111111111 is not on the community allowlist",
+ "altered": "DENIED: draft has not been approved by the coordinator",
+ "draft_bad": {
+  "headline_ms": "Sungai Galas di Kg. Lembaga naik ke tahap Amaran",
+  "headline_en": "Galas River at Kg. Lembaga has risen to Warning level",
+  "stations": [
+   {
+    "station_id": "0730831WL",
+    "level_m": null,
+    "band": "UNKNOWN",
+    "text_ms": "Sg. Nenggiri di Bertam (F1): tiada data boleh dipercayai (tiada paras ambang sah).",
+    "text_en": "Sg. Nenggiri di Bertam (F1): no data (no valid thresholds)."
+   },
+   {
+    "station_id": "5020401",
+    "level_m": 57.2,
+    "band": "WASPADA",
+    "text_ms": "Sg. Galas di Limau Kasturi 57.20 m, tahap Waspada, naik 2 m/jam.",
+    "text_en": "Galas at Limau Kasturi 57.20 m, Alert level, rising 2 m/h."
+   },
+   {
+    "station_id": "0731351WL",
+    "level_m": null,
+    "band": "UNKNOWN",
+    "text_ms": "Sg. Galas di Kg. Pulai (F1): tiada data boleh dipercayai (sensor rosak).",
+    "text_en": "Sg. Galas di Kg. Pulai (F1): no data (sensor fault)."
+   },
+   {
+    "station_id": "0730851WL(L)",
+    "level_m": 86.1,
+    "band": "AMARAN",
+    "text_ms": "Sg. Galas di Kg. Lembaga 86.10 m, tahap Bahaya.",
+    "text_en": "Galas at Kg. Lembaga is 86.10 m, Danger level."
+   }
+  ],
+  "trend_ms": "Penduduk selamat untuk tinggal di rumah buat masa ini.",
+  "trend_en": "Readings at 10:00 show levels still rising.",
+  "reading_time": "10:05"
+ },
+ "live": [
+  {
+   "id": "0730831WL",
+   "name": "Sg. Nenggiri di Bertam (F1)",
+   "level": 48.44,
+   "band": "UNKNOWN",
+   "quality": "NO_THRESHOLD",
+   "note": "placeholder thresholds 310.00/315.00/320.00 m",
+   "to_next": null
+  },
+  {
+   "id": "5020401",
+   "name": "Sg. Galas di Limau Kasturi",
+   "level": 54.14,
+   "band": "NORMAL",
+   "quality": "OK",
+   "note": "",
+   "to_next": 1.86
+  },
+  {
+   "id": "0731351WL",
+   "name": "Sg. Galas di Kg. Pulai (F1)",
+   "level": null,
+   "band": "UNKNOWN",
+   "quality": "SENSOR_FAULT",
+   "note": "sensor fault (reported -9999.0)",
+   "to_next": null
+  },
+  {
+   "id": "0730851WL(L)",
+   "name": "Sg. Galas di Kg. Lembaga (F1)",
+   "level": 82.97,
+   "band": "NORMAL",
+   "quality": "OK",
+   "note": "",
+   "to_next": 0.73
+  }
+ ]
+}

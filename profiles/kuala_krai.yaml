@@ -1,0 +1,36 @@
+# SIMULATED PERSONA (see gua_musang.yaml header). Real JPS stations; placeholder shelters.
+id: kuala-krai-town
+name: "Bandar Kuala Krai"
+state: Kelantan
+area_terms: ["Kelantan", "Kuala Krai"]
+location: {lat: 5.53, lon: 102.20}
+
+coordinator:
+  role: "Penyelaras komuniti (contoh / simulated)"
+  language: ms
+  allowlist_env: JAGASUNGAI_ALLOWLIST
+
+watch:
+  - id: "0730871WL"        # Sg. Lebir di Kg. Manik Urai
+    role: upstream
+  - id: "5222452"          # Sg. Lebir di Kg. Tualang
+    role: upstream
+  - id: "0730821WL"        # Sg. Nal di Kg. Sungai Nal
+    role: upstream
+  - id: "5521444"          # Sg. Kelantan di Kuala Krai
+    role: local
+
+rain_watch: []
+
+shelters:
+  - name: "PPS contoh K1 (ganti dengan senarai JKM)"
+    lat: 5.540
+    lon: 102.195
+    note: "placeholder"
+
+rules:
+  fast_rise_m_per_h: 0.30
+  near_next_band_m: 0.50
+  rebrief_after_minutes: 180
+  stale_after_minutes: 90
+  rain_warning_keywords: ["hujan", "rain"]

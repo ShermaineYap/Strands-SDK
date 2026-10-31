@@ -1,0 +1,112 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  JagaSungai supporting resources: state bucket, 15-minute scheduler, inbound WhatsApp
+  handler. The agent itself runs on Amazon Bedrock AgentCore Runtime (deployed with the
+  AgentCore CLI, see docs/DEPLOY.md); pass its ARN here.
+
+Parameters:
+  AgentRuntimeArn:
+    Type: String
+    Description: ARN of the JagaSungai AgentCore runtime
+  InboundTopicArn:
+    Type: String
+    Default: ""
+    Description: SNS topic that AWS End User Messaging Social publishes inbound WhatsApp to (optional)
+  ScheduleExpression:
+    Type: String
+    Default: rate(15 minutes)
+
+Conditions:
+  HasInbound: !Not [!Equals [!Ref InboundTopicArn, ""]]
+
+Resources:
+  StateBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault: {SSEAlgorithm: AES256}
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      LifecycleConfiguration:
+        Rules:
+          - Id: expire-snapshots
+            Status: Enabled
+            Prefix: jagasungai/snapshots/
+            ExpirationInDays: 90
+
+  PollFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../lambdas/
+      Handler: scheduler_invoke.handler
+      Runtime: python3.12
+      Timeout: 300
+      Environment:
+        Variables:
+          AGENT_RUNTIME_ARN: !Ref AgentRuntimeArn
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: bedrock-agentcore:InvokeAgentRuntime
+              Resource: [!Ref AgentRuntimeArn, !Sub "${AgentRuntimeArn}/*"]
+
+  PollSchedule:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      ScheduleExpression: !Ref ScheduleExpression
+      ScheduleExpressionTimezone: Asia/Kuala_Lumpur
+      FlexibleTimeWindow: {Mode: "OFF"}
+      Target:
+        Arn: !GetAtt PollFunction.Arn
+        RoleArn: !GetAtt SchedulerRole.Arn
+        RetryPolicy: {MaximumRetryAttempts: 0}
+
+  SchedulerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: {Service: scheduler.amazonaws.com}
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: invoke-poll
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: lambda:InvokeFunction
+                Resource: !GetAtt PollFunction.Arn
+
+  InboundFunction:
+    Type: AWS::Serverless::Function
+    Condition: HasInbound
+    Properties:
+      CodeUri: ../lambdas/
+      Handler: whatsapp_inbound.handler
+      Runtime: python3.12
+      Timeout: 120
+      Environment:
+        Variables:
+          AGENT_RUNTIME_ARN: !Ref AgentRuntimeArn
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: bedrock-agentcore:InvokeAgentRuntime
+              Resource: [!Ref AgentRuntimeArn, !Sub "${AgentRuntimeArn}/*"]
+      Events:
+        Inbound:
+          Type: SNS
+          Properties:
+            Topic: !Ref InboundTopicArn
+
+Outputs:
+  StateBucketName:
+    Value: !Ref StateBucket
+    Description: Set as JAGASUNGAI_BUCKET on the AgentCore runtime

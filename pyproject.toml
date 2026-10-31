@@ -1,0 +1,27 @@
+[project]
+name = "jagasungai"
+version = "0.1.0"
+description = "Verified flood briefs for cut-off communities, built with Strands Agents"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.11"
+dependencies = [
+  "strands-agents==1.62.0",
+  "bedrock-agentcore==1.25.2",
+  "boto3>=1.40",
+  "pydantic>=2.7",
+  "requests>=2.32",
+  "beautifulsoup4>=4.12",
+  "lxml>=5.2",
+  "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "cfn-lint>=1"]
+
+[tool.setuptools.packages.find]
+include = ["jagasungai*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::UserWarning"]

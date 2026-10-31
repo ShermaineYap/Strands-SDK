@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.jagasungai/
+fixtures/captures/
+.env
+*.egg-info/
+.aws-sam/
+.bedrock_agentcore*
+docs/video/build/

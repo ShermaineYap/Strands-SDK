@@ -1,0 +1,48 @@
+# Community profile: data, not code. Adding a community = adding a file like this.
+#
+# SIMULATED PERSONA. No JAKOA office, Tok Batin or NGO has adopted JagaSungai.
+# Station IDs and names are real JPS stations (Public InfoBanjir, Kelantan).
+# Shelter entries are PLACEHOLDERS with approximate coordinates; a real
+# deployment replaces them with the district JKM/NADMA list of designated PPS.
+
+id: gua-musang-kuala-betis
+name: "Kuala Betis & pos-pos Orang Asli, Gua Musang"
+state: Kelantan
+area_terms: ["Kelantan", "Gua Musang"]          # used to match MET warnings
+location: {lat: 4.95, lon: 101.79}               # approximate community centroid
+
+coordinator:
+  role: "Penyelaras komuniti (contoh / simulated)"
+  language: ms
+  # Real numbers are never committed. Set JAGASUNGAI_ALLOWLIST in the environment.
+  allowlist_env: JAGASUNGAI_ALLOWLIST
+
+watch:
+  # Upstream first. Order is the order used in briefs.
+  - id: "0730831WL"        # Sg. Nenggiri di Bertam
+    role: upstream
+  - id: "5020401"          # Sg. Galas di Limau Kasturi
+    role: upstream
+  - id: "0731351WL"        # Sg. Galas di Kg. Pulai
+    role: local
+  - id: "0730851WL(L)"     # Sg. Galas di Kg. Lembaga
+    role: downstream
+
+rain_watch: ["0730281RF"]  # Ladang Mentara (RHN), Gua Musang
+
+shelters:
+  - name: "PPS contoh A (ganti dengan senarai JKM)"
+    lat: 4.947
+    lon: 101.802
+    note: "placeholder"
+  - name: "PPS contoh B (ganti dengan senarai JKM)"
+    lat: 4.880
+    lon: 101.968
+    note: "placeholder"
+
+rules:
+  fast_rise_m_per_h: 0.30     # rising at least this fast...
+  near_next_band_m: 0.50      # ...and within this distance of the next band
+  rebrief_after_minutes: 180  # repeat a still-high brief at most every 3 h
+  stale_after_minutes: 90
+  rain_warning_keywords: ["hujan", "rain"]
