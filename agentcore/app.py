@@ -24,7 +24,9 @@ import os
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+# Works both from the repo (agentcore/app.py) and when packaged as app/<Agent>/main.py
+for _p in (Path(__file__).resolve().parent, Path(__file__).resolve().parent.parent):
+    sys.path.insert(0, str(_p))
 
 from bedrock_agentcore.runtime import BedrockAgentCoreApp  # noqa: E402
 
@@ -56,7 +58,13 @@ def _graph(profile_name: str, with_model: bool = True) -> JagaSungaiGraph:
 
 
 @app.entrypoint
-def invoke(payload: dict) -> dict:
+def invoke(payload: dict, context=None) -> dict:
+    # `agentcore invoke '<text>'` sends {"prompt": "<text>"}; accept a JSON action in the prompt too.
+    if "action" not in payload and isinstance(payload.get("prompt"), str):
+        try:
+            payload = json.loads(payload["prompt"])
+        except json.JSONDecodeError:
+            payload = {"action": payload["prompt"].strip().lower() or "status"}
     action = payload.get("action", "poll")
     if action == "poll":
         names = payload.get("profiles") or os.environ.get("JAGASUNGAI_PROFILES", "gua_musang").split(",")

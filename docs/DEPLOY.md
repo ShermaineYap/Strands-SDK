@@ -41,21 +41,29 @@ aws s3 mb s3://jagasungai-state-<your-suffix> --region ap-southeast-1
 
 ## 3. Deploy the agent to AgentCore Runtime
 
-Use the AgentCore CLI exactly as in the workshop's deploy module
-([hands-on workshop, module 5](https://github.com/aws-samples/sample-strands-agents-hands-on-workshop/tree/main/samples/05-deploy)):
+This follows the workshop's Module 5 flow (`create → add → copy code → uv → deploy`). The new CLI is on
+npm (`@aws/agentcore`, Node 20+); remove the old `bedrock-agentcore-starter-toolkit` if installed.
 
 ```bash
-npm install -g @aws/agentcore --ignore-scripts   # --ignore-scripts avoids a known postinstall failure
-pip uninstall -y bedrock-agentcore-starter-toolkit  # the new CLI replaces it
-agentcore create        # choose: Python, existing code, entrypoint agentcore/app.py, region ap-southeast-1
-agentcore dev           # local runtime; then in another shell:
+sudo npm install -g @aws/agentcore
+pip uninstall -y bedrock-agentcore-starter-toolkit
+
+agentcore create                      # project name e.g. jagasungai; "What would you like to build?" -> Skip
+cd jagasungai
+agentcore add                         # agent -> Name JagaSungai -> Bring my own code -> default app/JagaSungai/
+                                      # -> entrypoint main.py -> Direct Code Deploy -> Amazon Bedrock -> defaults
+bash ../scripts/package_agentcore.sh app/JagaSungai   # copies main.py, jagasungai/, profiles/ and writes pyproject.toml
+# set "region": "ap-southeast-1" in agentcore/aws-targets.json
+agentcore deploy                      # zips to S3 (no container) and provisions via CloudFormation
 agentcore invoke '{"action": "status"}'
-agentcore deploy        # Direct Code Deploy: zips the code to S3 and provisions via CloudFormation
 agentcore invoke '{"action": "poll"}'
+agentcore logs                        # runtime logs; traces via `agentcore traces` once Transaction Search is on
 ```
 
-If your CLI version asks different questions, follow its prompts; what matters is that the runtime's
-entrypoint is `agentcore/app.py` and `requirements.txt` is included.
+`agentcore deploy` builds from a `pyproject.toml` in the agent folder; a `requirements.txt` alone fails with
+"Required project file not found". `agentcore dev` needs a local browser, so test with `invoke` on remote IDEs.
+Enable CloudWatch **Transaction Search** once per account (CloudWatch → Application Signals → Transaction search)
+to see spans on the GenAI Observability page.
 
 Set these environment variables on the runtime (CLI config or console):
 
