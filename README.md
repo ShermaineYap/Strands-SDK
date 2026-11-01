@@ -74,7 +74,7 @@ What this means for a coordinator: a brief arrives in the 15-minute cycle in whi
 | `BeforeToolCallEvent` hook with `cancel_tool` | `guards.py` `DispatchGuard` | hard boundary on every send: allowlist, approved text only, approval freshness, rate limit with escalation override, forbidden phrases, disclaimer present |
 | Direct tool call (`agent.tool.send_brief`) | `graph.py` `_dispatch` | code decides to send, hooks still apply, and no model is in the send path |
 | `Model` interface | `jagasungai/scripted_model.py` | a deterministic stand-in lets tests drive the real agent loop, structured output and retries offline |
-| `BedrockAgentCoreApp` entrypoint | `agentcore/app.py` | deployed on AgentCore Runtime (ap-southeast-1), polled by EventBridge Scheduler |
+| `BedrockAgentCoreApp` entrypoint | `agentcore/app.py`, `scripts/package_agentcore.sh` | ready for AgentCore Runtime (ap-southeast-1) behind EventBridge Scheduler; not yet deployed (see Disclosures) |
 
 ### Why a Graph and not a Swarm
 
@@ -153,6 +153,7 @@ lambdas/, infra/         scheduler + inbound WhatsApp Lambdas, SAM template
 
 * **Real:** JPS station IDs, names, thresholds and the data faults in `fixtures/live/` (captured from Public InfoBanjir on 1 Nov 2026); the parsers; the live `status` command; the Strands graph, interrupt, session persistence and hooks; every eval number above (deterministic, reproducible with `python -m evals.run_all`).
 * **Simulated:** the coordinator and community personas; relief-centre entries in the profiles (placeholders, to be replaced by the district JKM list); the water levels in the replay scenario (real thresholds, synthetic rise). No JAKOA office, Tok Batin or NGO has adopted this tool.
+* **Not yet deployed:** JagaSungai has not been deployed to AWS during the hackathon week. The AgentCore packaging flow was exercised in the workshop sandbox with the workshop's own agent.
 * **Offline model in evals:** the evals use a deterministic stand-in for the model, so they measure the code's guarantees, which hold whatever the model writes. Nova's own first-pass accuracy, tokens and cost are measured by `scripts/smoke_bedrock.py` and `python -m evals.run_all --bedrock`.
 * **Data access:** Public InfoBanjir has no published API or terms for automated access. JagaSungai fetches each state page at most once per 15 minutes with an identifying User-Agent, and the parser is isolated so that an official API can replace it.
 * **Not an official warning.** Every message says so. The agent never tells anyone they are safe, never tells anyone not to evacuate, and does not replace JPS, MET, NADMA or district instructions.

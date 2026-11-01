@@ -76,7 +76,6 @@ They reply **YA** and it goes to the community list, or **TIDAK** and it is drop
 | Attacks on the send path blocked | **32/32** | `evals/eval_redteam.py` |
 | 48 h replay: every escalation (Waspada → Amaran → Bahaya) delivered | **yes**, drafted in the same 15-min cycle, delivered 5 min later | `evals/eval_replay.py` |
 | 48 h replay: cycles that needed no model call | **181 of 192** | `evals/eval_replay.py` |
-| Nova 2 Lite, measured: first-draft pass rate / cost per brief | ⟦x/y⟧ / ⟦US$…⟧ | `scripts/smoke_bedrock.py`, `evals.run_all --bedrock` |
 
 For the coordinator, this means a brief arrives in the same 15-minute cycle in which a gauge crosses a threshold. It names the real stations, it is in Bahasa Melayu, it carries reviewed actions, and it is honest about broken gauges. They are never asked to approve twice in an hour unless the river gets worse. In the 48-hour replay they approved 11 briefs, and all 11 were delivered.
 
@@ -103,12 +102,15 @@ JagaSungai is a Strands **Graph** with seven nodes, and only one of them calls a
 
 ## How it is built on AWS
 
+The repo ships the AWS deployment path: `agentcore/app.py` (a `BedrockAgentCoreApp` entrypoint with `poll`, `reply` and `status` actions), `scripts/package_agentcore.sh` (packages it for `agentcore deploy`), two Lambdas and a SAM template (`infra/template.yaml`, cfn-lint clean). The target architecture is:
+
 * **Amazon Bedrock**: Nova 2 Lite through the `global.` inference profile from ap-southeast-1
-* **Amazon Bedrock AgentCore Runtime** (ap-southeast-1): `BedrockAgentCoreApp` entrypoint with `poll`, `reply` and `status` actions
-* **AgentCore Observability**: OpenTelemetry traces of each graph run in CloudWatch ⟦insert trace screenshot⟧
+* **Amazon Bedrock AgentCore Runtime** (ap-southeast-1), with **AgentCore Observability** (OpenTelemetry traces in CloudWatch)
 * **Amazon EventBridge Scheduler → AWS Lambda**: `InvokeAgentRuntime` every 15 minutes (Asia/Kuala_Lumpur)
 * **Amazon S3**: state, snapshots and Strands graph sessions
-* **AWS End User Messaging Social**: WhatsApp out, with inbound replies via SNS → Lambda → `{"action": "reply"}`. The channel is behind one `Messenger` interface (`jagasungai/messenger.py`). The demo uses the console channel, because a Meta WhatsApp Business Account could not be approved within the hackathon week; Telegram is a drop-in fallback.
+* **AWS End User Messaging Social**: WhatsApp out, with inbound replies via SNS → Lambda → `{"action": "reply"}`
+
+**What I actually ran.** In the workshop sandbox I deployed and invoked the workshop's agent on AgentCore Runtime with the `agentcore create → add → deploy → invoke` flow. That is where the packaging steps in `docs/DEPLOY.md` come from. I did not deploy JagaSungai itself during the hackathon week, and the evals above use a deterministic stand-in model rather than live Nova calls. `scripts/smoke_bedrock.py` and `python -m evals.run_all --bedrock` are the two commands that add measured Nova numbers. The messaging channel sits behind one `Messenger` interface (`jagasungai/messenger.py`). The demo uses the console channel, because a Meta WhatsApp Business Account could not be approved within the week; Telegram is a drop-in fallback.
 
 ## Originality: beyond the workshop
 
@@ -146,6 +148,7 @@ My own evals caught several of my mistakes, and these are the parts I am proudes
 * **My first replay pestered the coordinator.** 18 of 32 drafts were approved and then blocked by the rate limit. The same rule now also runs upstream in `classify`, with the guard as the backstop: 11 drafts, 11 sent.
 * **My verifier had a one-band blind spot.** A draft saying a station was at "tahap Bahaya" passed the band check, because "Bahaya" is legitimately mentioned in "1.80 m lagi ke Bahaya". The verifier now checks *claims* ("tahap X", "X level") against the station's real band. I found this while recording the demo video, and it is now three of the 33 eval cases.
 * **Government data needs a fault detector before it needs an LLM.** A quarter of Kelantan's gauges (7 of 28) had placeholder thresholds the night I captured them, and one more reported -9,999.
+* **The SDK moved under the workshop.** On Strands 1.63 the workshop's Module 4 notebook failed: `context_manager` can no longer be combined with `FileSessionManager`. Setting `context_manager=False` for those agents fixed it. The same release-to-release drift is why this repo pins `strands-agents==1.62.0` and its tests run in CI.
 * **Strands made the safety architecture cheap.** A custom node is a small class, a conditional edge is a lambda, and an approval step is one hook calling `event.interrupt()`, which the session manager persists for free.
 
 ## Path to adoption
