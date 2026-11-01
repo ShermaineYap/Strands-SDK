@@ -32,7 +32,7 @@ your country of residence: it is verified against your profile and can disqualif
 
 ## 3. Fill the article placeholders (`docs/ARTICLE.md`, search for ⟦)
 
-- [ ] YouTube URL
+- [x] YouTube URL (https://youtu.be/aWROx7sH9GU)
 - [ ] Nova first-draft pass rate and cost per brief (from step 2)
 - [ ] Trace screenshot
 - [ ] WhatsApp, or "Telegram during the hackathon"

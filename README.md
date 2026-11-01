@@ -3,7 +3,7 @@
 **JagaSungai** ("river watch" in Malay) is an agent built with the [Strands Agents SDK](https://strandsagents.com) that watches the upstream river gauges a specific community depends on. When a gauge crosses an official JPS (Department of Irrigation and Drainage) threshold, it drafts a plain Bahasa Melayu / English "what is happening, what to do now" brief and checks every number in it against the readings. It then waits for the community coordinator to approve the brief before sending it over WhatsApp.
 
 > Built for the AWS Builder Center hackathon **Strands SDK: Workshop to Ship** (focus area: *Climate resilience*).
-> Licence: Apache-2.0.
+> Licence: Apache-2.0. Demo video (2:19): https://youtu.be/aWROx7sH9GU
 
 ![Architecture](docs/architecture.png)
 

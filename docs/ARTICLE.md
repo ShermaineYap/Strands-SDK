@@ -23,7 +23,7 @@ BODY STARTS HERE
 
 ## Demo and links
 
-🎬 **Demo video (under 3 min):** ⟦YouTube URL⟧
+🎬 **Demo video (2:19):** https://youtu.be/aWROx7sH9GU
 💻 **Code (Apache-2.0):** https://github.com/ShermaineYap/Strands-SDK
 📊 **Every eval, attack and injected error:** https://github.com/ShermaineYap/Strands-SDK/blob/main/results/EVALS.md
 
