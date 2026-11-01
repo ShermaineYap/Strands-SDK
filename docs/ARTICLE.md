@@ -148,6 +148,15 @@ My own evals caught several of my mistakes, and these are the parts I am proudes
 * **Government data needs a fault detector before it needs an LLM.** A quarter of Kelantan's gauges (7 of 28) had placeholder thresholds the night I captured them, and one more reported -9,999.
 * **Strands made the safety architecture cheap.** A custom node is a small class, a conditional edge is a lambda, and an approval step is one hook calling `event.interrupt()`, which the session manager persists for free.
 
+## Path to adoption
+
+The people who would run JagaSungai are not developers: a district JAKOA office, an NGO already working with Orang Asli communities, or a mosque or village committee with one person who keeps signal during floods. The design is aimed at them:
+
+* **Onboarding a community is a YAML file**: station IDs from InfoBanjir, a coordinator number, the district's relief-centre list. No code changes.
+* **Running cost scales with floods, not with time.** Quiet cycles make no model call (181 of 192 in the replay), so most of the year the cost is a scheduler, a few seconds of runtime per cycle, and S3.
+* **Nothing is sent without a named human approving it**, which is what a disaster-response agency needs before putting its name near an automated message.
+* **It runs in one AWS account.** A non-profit could host it on AWS Social Impact Credits, for one district or many.
+
 ## What's next
 
 1. Swap the placeholder relief centres for the district JKM list and add Amazon Location Service routes.
