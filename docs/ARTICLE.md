@@ -135,7 +135,7 @@ All numbers are reproducible with `python -m evals.run_all` (about 20 seconds, o
 
 * **Real:** JPS station IDs, thresholds and data faults (captured from Public InfoBanjir on 1 Nov 2026), the parsers, the live `status` command, the Strands graph, interrupt, persistence and hooks, and every eval number above.
 * **Simulated:** the coordinator and community personas, the relief-centre entries (placeholders until replaced by the district JKM list), and the water levels in the replay (real thresholds, synthetic rise). **No JAKOA office, Tok Batin or NGO has adopted this yet.**
-* **The evals use a deterministic stand-in model**, so they measure the guarantees the code makes whatever the model writes. Nova's own numbers are in the table row marked "measured".
+* **The evals use a deterministic stand-in model**, so they measure the guarantees the code makes whatever the model writes. Live Nova accuracy and cost are not measured yet (see "What I actually ran").
 * Public InfoBanjir has no published API or terms for automated access. I fetch each page at most once per 15 minutes with an identifying User-Agent, and the scraper can be replaced by an official API in one module.
 * JagaSungai never tells anyone they are safe, never tells anyone not to evacuate, and does not replace JPS, MET, NADMA or district instructions.
 
