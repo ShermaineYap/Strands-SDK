@@ -108,7 +108,7 @@ JagaSungai is a Strands **Graph** with seven nodes, and only one of them calls a
 * **AgentCore Observability**: OpenTelemetry traces of each graph run in CloudWatch ⟦insert trace screenshot⟧
 * **Amazon EventBridge Scheduler → AWS Lambda**: `InvokeAgentRuntime` every 15 minutes (Asia/Kuala_Lumpur)
 * **Amazon S3**: state, snapshots and Strands graph sessions
-* **AWS End User Messaging Social**: WhatsApp out, with inbound replies via SNS → Lambda → `{"action": "reply"}` ⟦or: "Telegram during the hackathon while my WhatsApp Business Account was in review"⟧
+* **AWS End User Messaging Social**: WhatsApp out, with inbound replies via SNS → Lambda → `{"action": "reply"}`. The channel is behind one `Messenger` interface (`jagasungai/messenger.py`). The demo uses the console channel, because a Meta WhatsApp Business Account could not be approved within the hackathon week; Telegram is a drop-in fallback.
 
 ## Originality: beyond the workshop
 
